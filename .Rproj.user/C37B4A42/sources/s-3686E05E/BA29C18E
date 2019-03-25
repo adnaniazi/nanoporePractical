@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1553495112278.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "644263049",
+    "id" : "BA29C18E",
+    "lastKnownWriteTime" : 1553495109,
+    "last_content_update" : 1553495109,
+    "path" : "~/Google Drive/nanopore_practical_for_students/squiggleBrowseR/R/hello.R",
+    "project_path" : "R/hello.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
