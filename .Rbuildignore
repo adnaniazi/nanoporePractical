@@ -1,2 +1,9 @@
+^Meta$
+^doc$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^data-raw$
+^cran-comments\.md$
+^\.travis\.yml$
+^revdep$
+^README.Rmd
