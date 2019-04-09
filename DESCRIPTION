@@ -17,6 +17,7 @@ SystemRequirements: libhdf5 (>= 1.8.13)
 Imports: 
     shiny (>= 1.2.0),
     shinyFiles (>= 0.7.2),
+    shinydashboard (>= 0.7.1),
     shinyjs (>= 1.0),
     magrittr (>= 1.5),
     ggplot2 (>= 3.0.0), 
