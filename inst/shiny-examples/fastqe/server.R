@@ -55,7 +55,7 @@ server <- shinyServer(function(input, output, session) {
     lfp <- left_filepath()
     if (Sys.info()[['sysname']] == "Windows") {
       lfp <- gsub("//", "/", lfp)
-      lfp <- gsub("/", "\\", lfp)
+      lfp <- gsub("/", "\\\\", lfp)
     }
     fastq_data <- read_fastq(lfp)
     fs <- create_formatted_string(fastq_data,
@@ -71,7 +71,7 @@ server <- shinyServer(function(input, output, session) {
     rfp <- right_filepath()
     if (Sys.info()[['sysname']] == "Windows") {
       rfp <- gsub("//", "/", rfp)
-      rfp <- gsub("/", "\\", rfp)
+      rfp <- gsub("/", "\\\\", rfp)
     }
     fastq_data <- read_fastq(rfp)
     fs <- create_formatted_string(fastq_data,
