@@ -5,7 +5,8 @@
 \title{Title}
 \usage{
 make_plot(read_data, width, height, z_normalize = FALSE,
-  truncate_spikes = FALSE)
+  truncate_spikes = FALSE, highlight = FALSE,
+  highlight_region = NULL)
 }
 \arguments{
 \item{truncate_spikes}{}
