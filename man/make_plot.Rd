@@ -2,15 +2,23 @@
 % Please edit documentation in R/make-plot.R
 \name{make_plot}
 \alias{make_plot}
-\title{Title}
+\title{bs}
 \usage{
 make_plot(read_data, width, height, z_normalize = FALSE,
   truncate_spikes = FALSE, highlight = FALSE,
   highlight_region = NULL)
 }
 \arguments{
-\item{truncate_spikes}{}
+\item{read_data}{rd}
+
+\item{width}{w}
+
+\item{height}{h}
+
+\item{z_normalize}{zn}
+
+\item{truncate_spikes}{ts}
 }
 \description{
-Title
+bs2
 }

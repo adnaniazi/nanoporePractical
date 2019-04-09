@@ -2,15 +2,25 @@
 % Please edit documentation in R/create_formatted_string.R
 \name{create_formatted_string}
 \alias{create_formatted_string}
-\title{Title}
+\title{bs
+bs}
 \usage{
 create_formatted_string(fastq_data, display_sequence_id = TRUE,
   display_sequence = TRUE, display_emoji = TRUE,
   display_encoded_quality = FALSE, display_decoded_quality = FALSE)
 }
 \arguments{
-\item{display_decoded_quality}{}
+\item{fastq_data}{data}
+
+\item{display_sequence}{seq}
+
+\item{display_emoji}{emoji}
+
+\item{display_encoded_quality}{qu}
+
+\item{display_decoded_quality}{dq}
 }
 \description{
-Title
+bs
+bs
 }

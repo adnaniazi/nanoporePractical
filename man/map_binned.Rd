@@ -2,13 +2,13 @@
 % Please edit documentation in R/map-binned.R
 \name{map_binned}
 \alias{map_binned}
-\title{Title}
+\title{bs}
 \usage{
 map_binned(quality_score_string)
 }
 \arguments{
-\item{quality_score_string}{}
+\item{quality_score_string}{qss}
 }
 \description{
-Title
+bs2
 }

@@ -4,7 +4,7 @@
 #'
 #' @param quality_score_string qss
 #'
-#' @return
+#' @return a val
 #' @export
 #'
 #' @examples

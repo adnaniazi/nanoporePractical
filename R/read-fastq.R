@@ -4,7 +4,7 @@
 #'
 #' @param fastq_file_path ffp
 #'
-#' @return
+#' @return a val
 #' @export
 #'
 #' @examples

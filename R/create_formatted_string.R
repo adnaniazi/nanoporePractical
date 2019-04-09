@@ -7,7 +7,7 @@
 #' @param display_encoded_quality qu
 #' @param display_decoded_quality dq
 #'
-#' @return
+#' @return ds
 #' @export
 #'
 #' @examples
@@ -17,14 +17,6 @@ create_formatted_string <- function(fastq_data,
                                     display_emoji=TRUE,
                                     display_encoded_quality=FALSE,
                                     display_decoded_quality=FALSE) {
-  # get score column
-  score <- fastq_data$quality_score
-
-  if (display_emoji) {
-    for (line in seq(score)) {
-      current_line <- score[line]
-    }
-  }
 
   fastq_data$emoji <- lapply(fastq_data[, c('quality_score')],  function(x) map_binned(x))
 

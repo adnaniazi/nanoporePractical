@@ -3,7 +3,7 @@
 #' 
 #' @param quality_score_string qs
 #'
-#' @return
+#' @return a val
 #' @export
 #'
 #' @examples

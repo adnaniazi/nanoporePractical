@@ -2,13 +2,13 @@
 % Please edit documentation in R/read-fastq.R
 \name{read_fastq}
 \alias{read_fastq}
-\title{Title}
+\title{bs}
 \usage{
 read_fastq(fastq_file_path)
 }
 \arguments{
-\item{fastq_file_path}{}
+\item{fastq_file_path}{ffp}
 }
 \description{
-Title
+bs2
 }

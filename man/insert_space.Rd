@@ -2,13 +2,17 @@
 % Please edit documentation in R/insert_space.R
 \name{insert_space}
 \alias{insert_space}
-\title{Title}
+\title{bs
+bs2}
 \usage{
 insert_space(character_string, num_spaces)
 }
 \arguments{
-\item{num_spaces}{}
+\item{character_string}{cs}
+
+\item{num_spaces}{ns}
 }
 \description{
-Title
+bs
+bs2
 }

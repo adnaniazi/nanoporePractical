@@ -8,7 +8,7 @@
 #' @param z_normalize zn
 #' @param truncate_spikes ts
 #'
-#' @return
+#' @return a val
 #' @export
 #'
 #' @examples

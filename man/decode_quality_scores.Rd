@@ -2,13 +2,15 @@
 % Please edit documentation in R/decode-quality-scores.R
 \name{decode_quality_scores}
 \alias{decode_quality_scores}
-\title{Title}
+\title{bs
+bs2}
 \usage{
 decode_quality_scores(quality_score_string)
 }
 \arguments{
-\item{quality_score_string}{}
+\item{quality_score_string}{qs}
 }
 \description{
-Title
+bs
+bs2
 }

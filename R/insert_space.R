@@ -4,7 +4,7 @@
 #' @param character_string cs
 #' @param num_spaces ns
 #'
-#' @return
+#' @return a val
 #' @export
 #'
 #' @examples
