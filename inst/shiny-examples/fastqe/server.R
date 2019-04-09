@@ -16,7 +16,7 @@ server <- shinyServer(function(input, output, session) {
   # make a proper directory path
   left_filepath <- shiny::reactive({
     if (is.integer(dir_left())) return(NULL)
-    home <- normalizePath("~")
+    home <- normalizePath("~", winslash = '/')
     result = tryCatch({
       file.path(home, paste(unlist(dir_left()[1]), collapse = .Platform$file.sep))
     }, warning = function(w) {
@@ -31,7 +31,7 @@ server <- shinyServer(function(input, output, session) {
   # make a proper directory path
   right_filepath <- shiny::reactive({
     if (is.integer(dir_right())) return(NULL)
-    home <- normalizePath("~")
+    home <- normalizePath("~", winslash = '/')
     result = tryCatch({
       file.path(home, paste(unlist(dir_right()[1]), collapse = .Platform$file.sep))
     }, warning = function(w) {
@@ -63,7 +63,13 @@ server <- shinyServer(function(input, output, session) {
 
   output$output_right <- shiny::renderText({
     if (is.integer(dir_right())) return(NULL)
-    fastq_data <- read_fastq(right_filepath())
+    rfp <- right_filepath()
+    # if (Sys.info()[['sysname']] == "Windows") {
+    #   rfp <- gsub("/", "\\", rfp)
+    #   rfp <- gsub("\\", "\\", rfp)
+    # 
+    # }
+    fastq_data <- read_fastq(rfp)
     fs <- create_formatted_string(fastq_data,
                                   display_sequence_id=input$checkbox_show_sequence_id,
                                   display_sequence=input$checkbox_show_sequence,
