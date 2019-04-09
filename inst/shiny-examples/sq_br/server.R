@@ -10,9 +10,16 @@ shiny::shinyServer(function(input, output, session) {
 
   # make a proper directory path
   path <- shiny::reactive({
-    home <- normalizePath("~")
+    home <- normalizePath("~", winslash = '/')
+    if (Sys.info()[['sysname']] == "Windows") {
+      home <- gsub('*Documents', '', home)
+    }
     result = tryCatch({
-      file.path(home, paste(unlist(dir()$path[-1]), collapse = .Platform$file.sep))
+      lfp <- file.path(home, paste(unlist(dir()$path[-1]), collapse = .Platform$file.sep))
+      if (Sys.info()[['sysname']] == "Windows") {
+        lfp <- gsub("//", "/", lfp)
+      }
+      lfp
     }, warning = function(w) {
       'warning-handler-code'
     }, error = function(e) {
@@ -26,8 +33,7 @@ shiny::shinyServer(function(input, output, session) {
   output$text_dir <- shiny::renderText(path())
 
   files_list <- shiny::reactive({
-    home <- normalizePath("~")
-    result = tryCatch({
+     result = tryCatch({
       list.files(path = path(),
                  recursive = TRUE,
                  pattern = '*.fast5$',
