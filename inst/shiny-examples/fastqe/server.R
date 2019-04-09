@@ -18,7 +18,11 @@ server <- shinyServer(function(input, output, session) {
     if (is.integer(dir_left())) return(NULL)
     home <- normalizePath("~", winslash = '/')
     result = tryCatch({
-      file.path(home, paste(unlist(dir_left()[1]), collapse = .Platform$file.sep))
+      lfp <- file.path(home, paste(unlist(dir_left()[1]), collapse = .Platform$file.sep))
+      if (Sys.info()[['sysname']] == "Windows") {
+        lfp <- gsub("//", "/", lfp)
+        lfp <- gsub("/", "\\\\", lfp)
+      }
     }, warning = function(w) {
       'warning-handler-code'
     }, error = function(e) {
@@ -33,7 +37,11 @@ server <- shinyServer(function(input, output, session) {
     if (is.integer(dir_right())) return(NULL)
     home <- normalizePath("~", winslash = '/')
     result = tryCatch({
-      file.path(home, paste(unlist(dir_right()[1]), collapse = .Platform$file.sep))
+      rfp <- file.path(home, paste(unlist(dir_right()[1]), collapse = .Platform$file.sep))
+      if (Sys.info()[['sysname']] == "Windows") {
+        rfp <- gsub("//", "/", rfp)
+        rfp <- gsub("/", "\\\\", rfp)
+      }
     }, warning = function(w) {
       'warning-handler-code'
     }, error = function(e) {
@@ -53,10 +61,6 @@ server <- shinyServer(function(input, output, session) {
   output$output_left <- shiny::renderText({
     if (is.integer(dir_left())) return(NULL)
     lfp <- left_filepath()
-    if (Sys.info()[['sysname']] == "Windows") {
-      lfp <- gsub("//", "/", lfp)
-      lfp <- gsub("/", "\\", lfp)
-    }
     fastq_data <- read_fastq(lfp)
     fs <- create_formatted_string(fastq_data,
                                   display_sequence_id=input$checkbox_show_sequence_id,
@@ -69,10 +73,6 @@ server <- shinyServer(function(input, output, session) {
   output$output_right <- shiny::renderText({
     if (is.integer(dir_right())) return(NULL)
     rfp <- right_filepath()
-    if (Sys.info()[['sysname']] == "Windows") {
-      rfp <- gsub("//", "/", rfp)
-      rfp <- gsub("/", "\\", rfp)
-    }
     fastq_data <- read_fastq(rfp)
     fs <- create_formatted_string(fastq_data,
                                   display_sequence_id=input$checkbox_show_sequence_id,
