@@ -5,8 +5,6 @@
 #'
 #' @return a val
 #' @export
-#'
-#' @examples
 decode_quality_scores <- function(quality_score_string) {
   quality_map<- list('!'= '0 ',
                      '"'= '1 ',

@@ -11,7 +11,6 @@
 #' @return a val
 #' @export
 #'
-#' @examples
 make_plot <- function(read_data,
                       width,
                       height,

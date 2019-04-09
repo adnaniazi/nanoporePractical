@@ -10,7 +10,6 @@
 #' @return ds
 #' @export
 #'
-#' @examples
 create_formatted_string <- function(fastq_data,
                                     display_sequence_id=TRUE,
                                     display_sequence=TRUE,

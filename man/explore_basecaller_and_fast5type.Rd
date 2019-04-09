@@ -14,22 +14,8 @@ parameter of the experiment.}
 in the Fast5 file hierarchy from which to read the data e.g. "Basecall_1D_000"}
 }
 \value{
-A list containing the all the relevant data:
-\itemize{
-  \item \code{basecalled_with: 'albacore', 'guppy'}
-  \item \code{read_is_1d: TRUE, FALSE}
-  \item \code{model: 'standard', 'flipflop'}
-  \item \code{fast5type: 'multifast5', 'single'}
-  \item \code{experiment_type: 'dna', 'rna'}
-}
+A list containing the all the relevant data
 }
 \description{
-This function finds if a read is:
-\itemize{
-  \item multifast5 or single fast5
-  \item 1D read or not-1D
-  \item basecalled with Albacore or Guppy
-  \item basecalled using standard model or flipflop model
-  \item DNA or RNA
-}
+Explore a fast5 file to find parameters of the experiment
 }

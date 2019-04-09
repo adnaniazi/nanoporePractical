@@ -20,6 +20,9 @@ create_formatted_string(fastq_data, display_sequence_id = TRUE,
 
 \item{display_decoded_quality}{dq}
 }
+\value{
+ds
+}
 \description{
 bs
 bs

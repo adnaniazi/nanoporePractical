@@ -10,6 +10,9 @@ decode_quality_scores(quality_score_string)
 \arguments{
 \item{quality_score_string}{qs}
 }
+\value{
+a val
+}
 \description{
 bs
 bs2

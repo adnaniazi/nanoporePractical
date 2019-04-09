@@ -4,14 +4,13 @@
 #' distributed throughout the lenght of the read. This function truncates/clips
 #' these spikes to a specified threshold value
 #'
-#' @param threshold
+#' @param threshold t
 #' @param data Data that needs its spikes to be truncated
-#' @param data_mean
-#' @param data_sd
+#' @param data_mean dm
+#' @param data_sd dsd
 #'
 #' @return Same data as input but with spikes clipped
 #' @export
-#' @examples
 #'
 truncate_data_spikes <- function (data, data_mean, data_sd, threshold=2){
     upper_limit <- data_mean + data_sd*threshold

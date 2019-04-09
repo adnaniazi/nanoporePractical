@@ -9,6 +9,9 @@ read_fastq(fastq_file_path)
 \arguments{
 \item{fastq_file_path}{ffp}
 }
+\value{
+a val
+}
 \description{
 bs2
 }

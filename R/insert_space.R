@@ -6,8 +6,6 @@
 #'
 #' @return a val
 #' @export
-#'
-#' @examples
 insert_space <- function(character_string, num_spaces) {
   #character_string <- tolower(character_string)
   character_string <- strsplit(character_string, split='')[[1]]

@@ -19,6 +19,9 @@ make_plot(read_data, width, height, z_normalize = FALSE,
 
 \item{truncate_spikes}{ts}
 }
+\value{
+a val
+}
 \description{
 bs2
 }

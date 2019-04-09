@@ -9,6 +9,9 @@ map_binned(quality_score_string)
 \arguments{
 \item{quality_score_string}{qss}
 }
+\value{
+a val
+}
 \description{
 bs2
 }

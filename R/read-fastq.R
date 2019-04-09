@@ -7,7 +7,6 @@
 #' @return a val
 #' @export
 #'
-#' @examples
 read_fastq <- function(fastq_file_path) {
   con <- file(fastq_file_path, open="r")
   records <- readLines(con)

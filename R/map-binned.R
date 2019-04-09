@@ -7,7 +7,6 @@
 #' @return a val
 #' @export
 #'
-#' @examples
 map_binned <- function (quality_score_string) {
   binned_map <- list('!'= '\U1F92E',
                      '"'= '\U1F92E',

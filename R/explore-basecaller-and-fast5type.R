@@ -1,36 +1,14 @@
 #' Explore a fast5 file to find parameters of the experiment
 #'
-#' This function finds if a read is:
-#' \itemize{
-#'   \item multifast5 or single fast5
-#'   \item 1D read or not-1D
-#'   \item basecalled with Albacore or Guppy
-#'   \item basecalled using standard model or flipflop model
-#'   \item DNA or RNA
-#' }
-#'
 #' @param fast5file_path a character string. Path of a fast5file for determining
 #' parameter of the experiment.
 #' @param basecall_group a character string. Name of the level
 #' in the Fast5 file hierarchy from which to read the data e.g. "Basecall_1D_000"
 #'
-#' @return A list containing the all the relevant data:
-#' \itemize{
-#'   \item \code{basecalled_with: 'albacore', 'guppy'}
-#'   \item \code{read_is_1d: TRUE, FALSE}
-#'   \item \code{model: 'standard', 'flipflop'}
-#'   \item \code{fast5type: 'multifast5', 'single'}
-#'   \item \code{experiment_type: 'dna', 'rna'}
-#' }
+#' @return A list containing the all the relevant data
 #'
-#' @examples
 #' @export
-#' \dontrun{
-#'
-#' lst <- explore_basecaller_and_fast5type('/path/to/fast5/file',
-#'                                         basecall_group='Basecall_1D_000')
-#' }
-#'
+
 explore_basecaller_and_fast5type <- function(fast5file_path, basecall_group) {
 
   f5_obj <- hdf5r::H5File$new(fast5file_path, mode='r')

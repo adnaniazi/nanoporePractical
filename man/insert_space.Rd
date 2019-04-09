@@ -12,6 +12,9 @@ insert_space(character_string, num_spaces)
 
 \item{num_spaces}{ns}
 }
+\value{
+a val
+}
 \description{
 bs
 bs2
