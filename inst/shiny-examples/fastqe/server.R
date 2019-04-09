@@ -17,12 +17,16 @@ server <- shinyServer(function(input, output, session) {
   left_filepath <- shiny::reactive({
     if (is.integer(dir_left())) return(NULL)
     home <- normalizePath("~", winslash = '/')
+    if (Sys.info()[['sysname']] == "Windows") {
+      home <- gsub('*Documents', '', home)
+    }
     result = tryCatch({
       lfp <- file.path(home, paste(unlist(dir_left()[1]), collapse = .Platform$file.sep))
       if (Sys.info()[['sysname']] == "Windows") {
         lfp <- gsub("//", "/", lfp)
         lfp <- gsub("/", "\\\\\\\\", lfp)
       }
+      lfp
     }, warning = function(w) {
       'warning-handler-code'
     }, error = function(e) {
@@ -36,12 +40,16 @@ server <- shinyServer(function(input, output, session) {
   right_filepath <- shiny::reactive({
     if (is.integer(dir_right())) return(NULL)
     home <- normalizePath("~", winslash = '/')
+    if (Sys.info()[['sysname']] == "Windows") {
+      home <- gsub('*Documents', '', home)
+    }
     result = tryCatch({
       rfp <- file.path(home, paste(unlist(dir_right()[1]), collapse = .Platform$file.sep))
       if (Sys.info()[['sysname']] == "Windows") {
         rfp <- gsub("//", "/", rfp)
         rfp <- gsub("/", "\\\\\\\\", rfp)
       }
+      rfp
     }, warning = function(w) {
       'warning-handler-code'
     }, error = function(e) {
