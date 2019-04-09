@@ -17,6 +17,7 @@ vignettes/*.R
 /BROWSE
 /GPATH
 /GRTAGS
+/Icon
 /GTAGS
 /TAGS
 /.dir-locals.el

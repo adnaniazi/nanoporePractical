@@ -1,4 +1,3 @@
-
 #' Extract the read data from a fast5 file
 #'
 #' This function can deal with both multifast5 files and single fast5 files.
@@ -19,6 +18,9 @@
 #' @param basecalled_with a character string. Specify if the data is from
 #''albacore' or 'guppy'
 #'
+#' @param basecall_group a character string. Name of the level
+#' in the Fast5 file hierarchy from which to read the data e.g. "Basecall_1D_000"
+#'
 #' @param multifast5 a logical. Set it to TRUE if the file to be processed
 #' is multifast5. Set it to FALSE if the file to be processed is a single fast5
 #' file
@@ -29,6 +31,7 @@
 #' @param plotting_library a string
 #'
 #' @return a list
+#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -37,6 +40,7 @@
 #'                   read_id_fast5_file = NA,
 #'                   plot_debug = F,
 #'                   basecalled_with = 'albacore',
+#'                   basecall_group = 'Basecall_1D_000',
 #'                   multifast5 = TRUE,
 #'                   model = 'standard',
 #'                   plotting_library = 'rbokeh')
@@ -46,6 +50,7 @@ extract_read_data <- function(file_path = NA,
                               read_id_fast5_file = NA,
                               plot_debug = FALSE,
                               basecalled_with,
+                              basecall_group,
                               multifast5,
                               model,
                               plotting_library) {
@@ -66,10 +71,14 @@ extract_read_data <- function(file_path = NA,
     full_read_id <- read_id_fast5_file$read_id
     # define all the paths
     raw_signal_path <- paste('/', full_read_id, '/Raw/Signal', sep='')
-    event_data_fastq_path <- paste('/', full_read_id, '/Analyses/Basecall_1D_000/BaseCalled_template/', sep='')
+    event_data_fastq_path <- paste0('/', full_read_id, '/Analyses/', basecall_group, '/BaseCalled_template/')
     read_id_path <- paste('/', full_read_id, '/Raw', sep='')
-    segmentation_path <- paste('/', full_read_id, '/Analyses/Segmentation_000/Summary/segmentation', sep='')
-    basecall_1d_template_path <- paste('/', full_read_id, '/Analyses/Basecall_1D_000/Summary/basecall_1d_template', sep='')
+
+    # make segmentation path based on the basecall group
+    sp <- strsplit('Basecall_1D_000', split='_')
+    seg_group <- sp[[1]][3]
+    segmentation_path <- paste0('/', full_read_id, '/Analyses/Segmentation_', seg_group, '/Summary/segmentation')
+    basecall_1d_template_path <- paste0('/', full_read_id, '/Analyses/', basecall_group, '/Summary/basecall_1d_template')
   }
 
   # get the data
@@ -96,6 +105,7 @@ extract_read_data <- function(file_path = NA,
 
   # extract just the fastq removing quality scores
   fastq <-strsplit(fastq, split = "\n")
+  fastq_quality <- fastq[[1]][4]
   fastq <- fastq[[1]][2]
 
   # if event_data wasn't present, make it now
@@ -221,5 +231,6 @@ extract_read_data <- function(file_path = NA,
        fastq = fastq,
        start = start,
        stride = stride,
-       samples_per_nt = samples_per_nt)
+       samples_per_nt = samples_per_nt,
+       file_path = file_path)
 }
