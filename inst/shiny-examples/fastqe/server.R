@@ -24,7 +24,7 @@ server <- shinyServer(function(input, output, session) {
       lfp <- file.path(home, paste(unlist(dir_left()[1]), collapse = .Platform$file.sep))
       if (Sys.info()[['sysname']] == "Windows") {
         lfp <- gsub("//", "/", lfp)
-        lfp <- gsub("/", "\\\\\\\\", lfp)
+        #lfp <- gsub("/", "\\\\\\\\", lfp)
       }
       lfp
     }, warning = function(w) {
@@ -47,7 +47,7 @@ server <- shinyServer(function(input, output, session) {
       rfp <- file.path(home, paste(unlist(dir_right()[1]), collapse = .Platform$file.sep))
       if (Sys.info()[['sysname']] == "Windows") {
         rfp <- gsub("//", "/", rfp)
-        rfp <- gsub("/", "\\\\\\\\", rfp)
+        #rfp <- gsub("/", "\\\\\\\\", rfp)
       }
       rfp
     }, warning = function(w) {
