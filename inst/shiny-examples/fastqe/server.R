@@ -52,7 +52,12 @@ server <- shinyServer(function(input, output, session) {
 
   output$output_left <- shiny::renderText({
     if (is.integer(dir_left())) return(NULL)
-    fastq_data <- read_fastq(left_filepath())
+    lfp <- left_filepath()
+    if (Sys.info()[['sysname']] == "Windows") {
+      lfp <- gsub("//", "/", lfp)
+      lfp <- gsub("/", "\\", lfp)
+    }
+    fastq_data <- read_fastq(lfp)
     fs <- create_formatted_string(fastq_data,
                                   display_sequence_id=input$checkbox_show_sequence_id,
                                   display_sequence=input$checkbox_show_sequence,
@@ -64,11 +69,10 @@ server <- shinyServer(function(input, output, session) {
   output$output_right <- shiny::renderText({
     if (is.integer(dir_right())) return(NULL)
     rfp <- right_filepath()
-    # if (Sys.info()[['sysname']] == "Windows") {
-    #   rfp <- gsub("/", "\\", rfp)
-    #   rfp <- gsub("\\", "\\", rfp)
-    # 
-    # }
+    if (Sys.info()[['sysname']] == "Windows") {
+      rfp <- gsub("//", "/", rfp)
+      rfp <- gsub("/", "\\", rfp)
+    }
     fastq_data <- read_fastq(rfp)
     fs <- create_formatted_string(fastq_data,
                                   display_sequence_id=input$checkbox_show_sequence_id,
