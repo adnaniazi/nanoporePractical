@@ -1,10 +1,11 @@
-#' Title
+#' bs
+#' bs
 #'
-#' @param fastq_data
-#' @param display_sequence
-#' @param display_emoji
-#' @param display_encoded_quality
-#' @param display_decoded_quality
+#' @param fastq_data data
+#' @param display_sequence seq
+#' @param display_emoji emoji
+#' @param display_encoded_quality qu
+#' @param display_decoded_quality dq
 #'
 #' @return
 #' @export

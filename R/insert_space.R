@@ -1,7 +1,8 @@
-#' Title
+#' bs
+#' bs2
 #'
-#' @param character_string
-#' @param num_spaces
+#' @param character_string cs
+#' @param num_spaces ns
 #'
 #' @return
 #' @export

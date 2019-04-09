@@ -1,10 +1,12 @@
-#' Title
+#' bs
+#' 
+#' bs2
 #'
-#' @param read_data
-#' @param width
-#' @param height
-#' @param z_normalize
-#' @param truncate_spikes
+#' @param read_data rd
+#' @param width w
+#' @param height h
+#' @param z_normalize zn
+#' @param truncate_spikes ts
 #'
 #' @return
 #' @export

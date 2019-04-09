@@ -1,6 +1,8 @@
-#' Title
+#' bs
+#' 
+#' bs2
 #'
-#' @param fastq_file_path
+#' @param fastq_file_path ffp
 #'
 #' @return
 #' @export

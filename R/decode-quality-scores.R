@@ -1,6 +1,7 @@
-#' Title
-#'
-#' @param quality_score_string
+#' bs
+#' bs2
+#' 
+#' @param quality_score_string qs
 #'
 #' @return
 #' @export
