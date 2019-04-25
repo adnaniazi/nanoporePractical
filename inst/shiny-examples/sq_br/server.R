@@ -94,11 +94,12 @@ shiny::shinyServer(function(input, output, session) {
     fast5file_path <- file.path(path(), current_read())
 
     current_read_path <- current_read()
-    if (length(fast5file_path) == 0 | current_read_path == ''){
+    if (length(fast5file_path) == 0 | current_read_path == '') {
       return(NULL)
     }
 
-    basecall_group <- 'Basecall_1D_000'
+    basecall_group <- input$basecall_group
+    print(basecall_group)
     datatype <- explore_basecaller_and_fast5type(fast5file_path=fast5file_path,
                                                  basecall_group=basecall_group)
     read_data <- extract_read_data (file_path = fast5file_path,
