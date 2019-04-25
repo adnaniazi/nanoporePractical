@@ -11,7 +11,7 @@ ui <- shinydashboard::dashboardPage(
     # currently-selected folder path to display
     shiny::h5(class = "path_text", shiny::textOutput(outputId = 'text_dir')),
     shiny::hr(),
-
+    
     # Adjust left spacing for path text
     shiny::tags$head(shiny::tags$style(shiny::HTML(
       '.path_text {
@@ -23,6 +23,10 @@ ui <- shinydashboard::dashboardPage(
       }'
     ))),
 
+    # Default basecall group
+    shiny::textInput(inputId = 'basecall_group', label = 'Basecall Group',
+                     value = 'Basecall_1D_000'),
+  
     # basic preprocessing options
     shiny::checkboxGroupInput(inputId='checkboxes_preprocess',
                               label='Basic preprocessing options',

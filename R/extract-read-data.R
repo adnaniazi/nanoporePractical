@@ -31,7 +31,6 @@
 #' @param plotting_library a string
 #'
 #' @return a list
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -54,7 +53,7 @@ extract_read_data <- function(file_path = NA,
                               multifast5,
                               model,
                               plotting_library) {
-
+  
   if (!multifast5) {
     f5_obj <- hdf5r::H5File$new(file_path, mode='r')
     f5_tree <- f5_obj$ls(recursive=TRUE)
@@ -62,9 +61,14 @@ extract_read_data <- function(file_path = NA,
     # define all the paths
     read_id_path <- f5_tree[grepl('Raw/Reads/Read_[0-9]+$', f5_tree)]
     raw_signal_path <- f5_tree[grepl('Raw/Reads/Read_[0-9]+/Signal', f5_tree)]
-    event_data_fastq_path <- f5_tree[grepl('.*/BaseCalled_template$', f5_tree)]
-    segmentation_path <- f5_tree[grepl('.*/segmentation$', f5_tree)]
-    basecall_1d_template_path <- f5_tree[grepl('.*/basecall_1d_template$', f5_tree)]
+    # make fastq, Event/Move path
+    event_data_fastq_path <- paste0('Analyses/', basecall_group, '/BaseCalled_template')
+    # make segmentation path based on the basecall group
+    sp <- strsplit(basecall_group, split = '_')
+    seg_group <- sp[[1]][3]
+    segmentation_path <- paste0('Analyses/Segmentation_', seg_group, '/Summary/segmentation')
+    # make basecalled_template path
+    basecall_1d_template_path <- paste0('Analyses/', basecall_group, '/Summary/basecall_1d_template')
   }
   else {
     f5_obj <- hdf5r::H5File$new(read_id_fast5_file$fast5_file, mode='r')
@@ -73,21 +77,22 @@ extract_read_data <- function(file_path = NA,
     raw_signal_path <- paste('/', full_read_id, '/Raw/Signal', sep='')
     event_data_fastq_path <- paste0('/', full_read_id, '/Analyses/', basecall_group, '/BaseCalled_template/')
     read_id_path <- paste('/', full_read_id, '/Raw', sep='')
-
+    
     # make segmentation path based on the basecall group
-    sp <- strsplit('Basecall_1D_000', split='_')
+    sp <- strsplit(basecall_group, split='_')
     seg_group <- sp[[1]][3]
     segmentation_path <- paste0('/', full_read_id, '/Analyses/Segmentation_', seg_group, '/Summary/segmentation')
     basecall_1d_template_path <- paste0('/', full_read_id, '/Analyses/', basecall_group, '/Summary/basecall_1d_template')
   }
-
+  
   # get the data
   raw_data <- f5_obj[[raw_signal_path]]$read()
   read_id <- f5_obj[[read_id_path]]$attr_open('read_id')$read()
   fastq <- f5_obj[[event_data_fastq_path]]$open('Fastq')$read()
   start <- f5_obj[[segmentation_path]]$attr_open('first_sample_template')$read()
   called_events <- f5_obj[[basecall_1d_template_path]]$attr_open('called_events')$read()
-
+  # compute called_event if it has been set to W by ONT in the FAST5 file (Wierd! I know)
+  compute_called_events <- ifelse(called_events == 'W', TRUE, FALSE)
   # get the event data, if present -- or make it, if not present
   make_event_data = FALSE
   if ('Events' %in% names(f5_obj[[event_data_fastq_path]])){
@@ -102,23 +107,27 @@ extract_read_data <- function(file_path = NA,
     stride <- f5_obj[[basecall_1d_template_path]]$attr_open('block_stride')$read()
     make_event_data = TRUE
   }
-
+  
   # extract just the fastq removing quality scores
-  fastq <-strsplit(fastq, split = "\n")
-  fastq_quality <- fastq[[1]][4]
+  fastq <- strsplit(fastq, split = "\n")
   fastq <- fastq[[1]][2]
-
+  
+  
   # if event_data wasn't present, make it now
   if (make_event_data) {
     # The line below is there to remove R CMD CHECK
     # "no visible binding for global variable" error
     move_cumsum <- fastq_bases <- NULL
-
+    
+    start_col <- seq(from = start,
+                     to = start + stride * (length(move) - 1),
+                     by = stride)
     event_data <- data.frame(move = move,
+                             start = start_col,
                              move_cumsum = cumsum(move),
                              fastq_bases = fastq,
                              stringsAsFactors = FALSE)
-
+    
     # The line below is there to remove R CMD CHECK
     # "no visible binding for global variable" error
     model_state <- NULL
@@ -126,9 +135,14 @@ extract_read_data <- function(file_path = NA,
                                 model_state = substr(fastq_bases,
                                                      start=move_cumsum,
                                                      stop=move_cumsum))
-    event_data <- dplyr::select(event_data, model_state, move)
+    event_data <- dplyr::select(event_data, model_state, start, move)
   }
-
+  
+  # compute the number of event if not present already
+  if (compute_called_events) {
+    called_events <- nrow(event_data)
+  }
+  
   # make a vector of moves interpolated for every sample i.e., make a sample-wise or per-sample vector of moves
   if (plot_debug & plotting_library == 'ggplot2') {
     if (start != 0) {
@@ -142,7 +156,7 @@ extract_read_data <- function(file_path = NA,
   } else {
     moves_sample_wise_vector <- rep(NA, length(raw_data))
   }
-
+  
   # compute event length vector
   if (model == 'flipflop') {
     # create event length data for tail normalization
@@ -174,7 +188,7 @@ extract_read_data <- function(file_path = NA,
     index <- called_events
     length_count <- 1
     divide_by <- 1
-
+    
     # handle the first row of the event data
     if (event_data$move[1]==1) {
       event_length_vector_1[1] <- 1
@@ -223,7 +237,7 @@ extract_read_data <- function(file_path = NA,
     samples_per_nt <- psych::geometric.mean(event_length_vector)
   }
   f5_obj$close_all()
-
+  
   list(read_id = read_id,
        raw_data = raw_data,
        event_data = event_data,
@@ -231,6 +245,5 @@ extract_read_data <- function(file_path = NA,
        fastq = fastq,
        start = start,
        stride = stride,
-       samples_per_nt = samples_per_nt,
-       file_path = file_path)
+       samples_per_nt = samples_per_nt)
 }
